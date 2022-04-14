@@ -11,7 +11,7 @@ import com.example.task3.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.bottom_sheet.*
 
-class BottomSheet() : BottomSheetDialogFragment() {
+class BottomSheet : BottomSheetDialogFragment() {
 
     private lateinit var viewModel: HabitListViewModel
 

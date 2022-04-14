@@ -23,20 +23,16 @@ class ViewPagerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.view_pager, container, false)
-
         val fragmentList = arrayListOf<Fragment>(
             HabitListFragment.newInstance(Habit.HabitType.GOOD),
             HabitListFragment.newInstance(Habit.HabitType.BAD)
         )
-
         val adapter = HabitPagerAdapter(
             activity as AppCompatActivity,
             fragmentList
         )
-
         view.viewPager.adapter = adapter
         view.viewPager.isUserInputEnabled = false
-
         return view
     }
 

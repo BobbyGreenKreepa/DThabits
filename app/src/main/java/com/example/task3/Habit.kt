@@ -3,8 +3,6 @@ package com.example.task3
 
 import androidx.room.*
 import java.io.Serializable
-import kotlin.coroutines.coroutineContext
-
 
 @Entity
 @TypeConverters(Habit.TypeConverter::class, Habit.PriorityConverter::class)
@@ -20,13 +18,6 @@ data class Habit(
 
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null
-
-    companion object {
-        private val comparatorByPriority = Comparator<Habit> { habit1, habi2b ->
-            habit1.priority.value.compareTo(habi2b.priority.value)
-        }
-    }
-
 
     enum class HabitType(val value: Int) {
         GOOD(0),

@@ -1,5 +1,6 @@
 package com.example.task3.Adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Build
@@ -14,11 +15,9 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.list_item.view.*
 
 class HabitAdapter(private val context: Context?)
-    : RecyclerView.Adapter<HabitAdapter.HabitViewHolder>()
-{
+    : RecyclerView.Adapter<HabitAdapter.HabitViewHolder>() {
 
     private var habits: List<Habit> = ArrayList()
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -32,6 +31,7 @@ class HabitAdapter(private val context: Context?)
         holder.bind(habits[position])
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun refreshHabits(habitList: List<Habit>) {
         this.habits = habitList
         notifyDataSetChanged()
@@ -40,6 +40,7 @@ class HabitAdapter(private val context: Context?)
     inner class HabitViewHolder(override val containerView: View) :
         SuperGestureDetector.SwipableViewHolder(containerView), LayoutContainer {
 
+        @SuppressLint("SetTextI18n")
         @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
         fun bind(habit: Habit) {
             val times = context?.resources?.getQuantityString(R.plurals.count, habit.time, habit.time)

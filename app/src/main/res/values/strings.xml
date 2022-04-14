@@ -21,7 +21,7 @@
     <string name="normal_habit">Нормальная</string>
     <string name="information">Информация</string>
     <string name="habits">Привычки</string>
-    <string name="greeting">Привет! Это приложение "Мои привычки", в котором ты можешь добавлять и отслеживать свои хорошие или плохие привычки :)</string>
+    <string name="greeting">Привычки от ромчика</string>
     <string name="type_text">Тип</string>
     <string name="open_drawer" />
     <string name="close_drawer" />
@@ -31,7 +31,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Мои привычки</string>
-    <string name="nav_header_subtitle">alexic605@gmail.com</string>
+    <string name="nav_header_subtitle">koksenvai@gmail.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="menu_home">Home</string>

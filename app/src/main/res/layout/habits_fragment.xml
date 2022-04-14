@@ -29,7 +29,7 @@
         app:layout_anchor="@id/containerBottomSheet"
         app:layout_anchorGravity="end"
         android:background="@color/design_default_color_primary"
-        android:src="@android:drawable/ic_input_add"
+        android:src="@drawable/ic_add_habit_foreground"
         />
 
 

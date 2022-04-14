@@ -23,7 +23,7 @@ class  HabitRedactorFragment: Fragment(){
 
 
     private lateinit var viewModel: RedactorHabitViewModel
-    lateinit var colorDialog: DialogFragment;
+    lateinit var colorDialog: DialogFragment
 
     override fun onCreateView(
         inflater: LayoutInflater,

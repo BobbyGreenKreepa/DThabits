@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:id="@+id/peeker"
+        android:id="@+id/picker"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/habit_search"
         app:layout_constraintEnd_toEndOf="parent"

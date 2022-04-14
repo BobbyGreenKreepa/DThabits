@@ -39,8 +39,6 @@ class HabitListFragment : Fragment(),
     private lateinit var gestureDetector: GestureDetector
     private lateinit var viewModel: HabitListViewModel
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -66,7 +64,7 @@ class HabitListFragment : Fragment(),
         val bottomSheet = BottomSheet()
         childFragmentManager.beginTransaction()
             .replace(R.id.containerBottomSheet, bottomSheet)
-            .commit();
+            .commit()
     }
 
     private fun observeViewModels() {
