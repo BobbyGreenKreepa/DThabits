@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <TextView
@@ -10,27 +10,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/large_margin"
-        android:text="Выберите цвет"
+        android:text="@string/color_choose_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
-        android:layout_width="387dp"
-        android:layout_height="75dp"
-        android:layout_margin="@dimen/large_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/gradient_height"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintHorizontal_bias="0.272"
         app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:id="@+id/color_buttons"
-            android:layout_width="wrap_content"
+            android:layout_width="1400dp"
             android:layout_height="match_parent"
             android:background="@drawable/gradient"
             android:orientation="horizontal">
+
 
             <Button
                 android:id="@+id/color_button1"
@@ -38,7 +41,7 @@
                 android:layout_height="@dimen/color_button_width"
                 android:layout_margin="@dimen/large_margin"
                 android:background="@drawable/color_button"
-                android:textColorHint="#38EA10" />
+                android:textColorHint="@color/colorPink" />
 
             <Button
                 android:id="@+id/color_button2"
@@ -46,7 +49,7 @@
                 android:layout_height="@dimen/color_button_width"
                 android:layout_margin="@dimen/large_margin"
                 android:background="@drawable/color_button"
-                android:textColorHint="#DD17C83E" />
+                android:textColorHint="@color/colorRed" />
 
             <Button
                 android:id="@+id/color_button3"
@@ -54,7 +57,7 @@
                 android:layout_height="@dimen/color_button_width"
                 android:layout_margin="@dimen/large_margin"
                 android:background="@drawable/color_button"
-                android:textColorHint="#CC48AE6D" />
+                android:textColorHint="@color/colorDeepOrange" />
 
             <Button
                 android:id="@+id/color_button4"
@@ -62,7 +65,7 @@
                 android:layout_height="@dimen/color_button_width"
                 android:layout_margin="@dimen/large_margin"
                 android:background="@drawable/color_button"
-                android:textColorHint="#8B3BCC92" />
+                android:textColorHint="@color/colorAmber" />
 
 
             <Button
@@ -71,7 +74,7 @@
                 android:layout_height="@dimen/color_button_width"
                 android:layout_margin="@dimen/large_margin"
                 android:background="@drawable/color_button"
-                android:textColorHint="#770B99F6" />
+                android:textColorHint="@color/colorYellow" />
 
             <Button
                 android:id="@+id/color_button6"
@@ -79,7 +82,7 @@
                 android:layout_height="@dimen/color_button_width"
                 android:layout_margin="@dimen/large_margin"
                 android:background="@drawable/color_button"
-                android:textColorHint="#D21775FF" />
+                android:textColorHint="@color/colorLime" />
 
             <Button
                 android:id="@+id/color_button7"
@@ -87,7 +90,7 @@
                 android:layout_height="@dimen/color_button_width"
                 android:layout_margin="@dimen/large_margin"
                 android:background="@drawable/color_button"
-                android:textColorHint="#E81B3CDF" />
+                android:textColorHint="@color/colorLightGreen" />
 
             <Button
                 android:id="@+id/color_button8"
@@ -95,7 +98,7 @@
                 android:layout_height="@dimen/color_button_width"
                 android:layout_margin="@dimen/large_margin"
                 android:background="@drawable/color_button"
-                android:textColorHint="#031CFF" />
+                android:textColorHint="@color/colorGreen" />
 
             <Button
                 android:id="@+id/color_button9"
@@ -103,16 +106,15 @@
                 android:layout_height="@dimen/color_button_width"
                 android:layout_margin="@dimen/large_margin"
                 android:background="@drawable/color_button"
-                android:textColorHint="#3006E6" />
+                android:textColorHint="@color/colorTeal" />
 
             <Button
                 android:id="@+id/color_button10"
-
                 android:layout_width="@dimen/color_button_width"
                 android:layout_height="@dimen/color_button_width"
                 android:layout_margin="@dimen/large_margin"
                 android:background="@drawable/color_button"
-                android:textColorHint="#431CEF" />
+                android:textColorHint="@color/colorCyan" />
 
             <Button
                 android:id="@+id/color_button11"
@@ -120,7 +122,7 @@
                 android:layout_height="@dimen/color_button_width"
                 android:layout_margin="@dimen/large_margin"
                 android:background="@drawable/color_button"
-                android:textColorHint="#5D13E1" />
+                android:textColorHint="@color/colorLightBlue" />
 
             <Button
                 android:id="@+id/color_button12"
@@ -128,7 +130,7 @@
                 android:layout_height="@dimen/color_button_width"
                 android:layout_margin="@dimen/large_margin"
                 android:background="@drawable/color_button"
-                android:textColorHint="#B0276E" />
+                android:textColorHint="@color/colorBlue" />
 
             <Button
                 android:id="@+id/color_button13"
@@ -136,7 +138,7 @@
                 android:layout_height="@dimen/color_button_width"
                 android:layout_margin="@dimen/large_margin"
                 android:background="@drawable/color_button"
-                android:textColorHint="#9F1D55" />
+                android:textColorHint="@color/colorIndigo" />
 
             <Button
                 android:id="@+id/color_button14"
@@ -144,7 +146,7 @@
                 android:layout_height="@dimen/color_button_width"
                 android:layout_margin="@dimen/large_margin"
                 android:background="@drawable/color_button"
-                android:textColorHint="#BD053F" />
+                android:textColorHint="@color/colorDeepPurple" />
 
             <Button
                 android:id="@+id/color_button15"
@@ -152,7 +154,7 @@
                 android:layout_height="@dimen/color_button_width"
                 android:layout_margin="@dimen/large_margin"
                 android:background="@drawable/color_button"
-                android:textColorHint="#B51D2F" />
+                android:textColorHint="@color/colorDeepPurple" />
 
             <Button
                 android:id="@+id/color_button16"
@@ -160,17 +162,9 @@
                 android:layout_height="@dimen/color_button_width"
                 android:layout_margin="@dimen/large_margin"
                 android:background="@drawable/color_button"
-                android:textColorHint="#FF0000" />
+                android:textColorHint="@color/colorPurple" />
+
 
         </LinearLayout>
     </HorizontalScrollView>
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="93dp"
-        android:layout_height="16dp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

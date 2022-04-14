@@ -16,18 +16,17 @@ class HabitListViewModel : ViewModel(), Filterable {
     val habits: LiveData<List<Habit>> = mutableHabit
     private  var repositoryDB: HabitRepository = HabitRepository()
     var habitType: Habit.HabitType? = null
-    private var habitsNotFilteredList = habits
-
-
+    private var habitsNotFilteredList = mutableHabit.value
 
     init {
         onCreate()
     }
 
-
     private fun onCreate(){
         repositoryDB.habits.observeForever( Observer { it ->
-            mutableHabit.value = it.filter { el -> el.type == habitType } })
+            mutableHabit.value = it.filter { el -> el.type == habitType }
+            habitsNotFilteredList = mutableHabit.value
+        })
     }
 
     override fun getFilter(): Filter {
@@ -42,20 +41,10 @@ class HabitListViewModel : ViewModel(), Filterable {
                 return searchResult
             }
 
-
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
                 mutableHabit.value = results?.values as List<Habit>?
             }
         }
-    }
-
-    fun getItems() = habits.value
-
-    fun habitsMoved(startPosition: Int, nextPosition: Int) {
-        val habits = mutableHabit.value as MutableList
-        val habit = habits[startPosition]
-        habits[startPosition] = habits[nextPosition]
-        habits[nextPosition] = habit
     }
 
     fun deleteHabit(habit: Habit) {
@@ -64,9 +53,9 @@ class HabitListViewModel : ViewModel(), Filterable {
 
     fun sortList(position: Int){
         when(position){
-            0 -> mutableHabit.value = mutableHabit.value!!.sortedBy {el-> el.id }
-            1 -> mutableHabit.value = mutableHabit.value!!.sortedBy {el-> el.period / el.time }
-            2 -> mutableHabit.value = mutableHabit.value!!.sortedBy {el-> el.priority.value }
+            0 -> mutableHabit.value = mutableHabit.value?.sortedBy {el-> el.id }
+            1 -> mutableHabit.value = mutableHabit.value?.sortedBy {el-> el.period / el.time }
+            2 -> mutableHabit.value = mutableHabit.value?.sortedBy {el-> el.priority.value }
         }
     }
 }

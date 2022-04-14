@@ -19,6 +19,7 @@ class RedactorHabitViewModel(): ViewModel() {
         repositoryDB.addHabit(habit)
     }
 
+
     @RequiresApi(Build.VERSION_CODES.N)
     fun updateHabit(habit: Habit){
         repositoryDB.updateHabit(habit)

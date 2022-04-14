@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -18,7 +19,7 @@ import com.example.task3.Fragments.HabitList.HabitListFragment
 import kotlinx.android.synthetic.main.redactor_fragment.*
 import kotlin.math.absoluteValue
 
-class  HabitRedactorFragment: Fragment(), ColorPickerDialog.OnInputListener {
+class  HabitRedactorFragment: Fragment(){
 
 
     private lateinit var viewModel: RedactorHabitViewModel
@@ -40,7 +41,9 @@ class  HabitRedactorFragment: Fragment(), ColorPickerDialog.OnInputListener {
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        color_button.backgroundTintList = ColorStateList.valueOf(viewModel.color.value!!)
+        viewModel.color.observe(viewLifecycleOwner, Observer {
+            color_button.backgroundTintList = ColorStateList.valueOf(it)
+        })
         colorDialog = ColorPickerDialog()
         when (arguments?.getString(HabitListFragment.TASK_KEY)) {
 
@@ -125,11 +128,5 @@ class  HabitRedactorFragment: Fragment(), ColorPickerDialog.OnInputListener {
             Integer.valueOf(edit_days.text.toString()),
             viewModel.color.value!!
         )
-    }
-
-    override fun sendColor(color: Int) {
-        val state = ColorStateList.valueOf(color)
-        color_button.backgroundTintList = state
-        viewModel.color.value = color
     }
 }
