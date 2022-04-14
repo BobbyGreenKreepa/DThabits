@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_marginTop="24dp"
+    android:background="@color/design_default_color_error"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/delete"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:orientation="vertical"
+        android:padding="6dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="24dp"
+            android:src="@mipmap/ic_delete_sweep"/>
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/delete"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/swipable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="@dimen/normal_margin"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingStart="24dp"
+        android:paddingLeft="24dp">
+
+
+        <TextView
+            android:id="@+id/habit_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/list_item_items_top_margin"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:layout_marginRight="@dimen/normal_margin"
+            android:textColor="@color/colorHint"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/habit_description"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Зелёная" />
+
+
+        <TextView
+            android:id="@+id/habit_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="@dimen/list_item_items_top_margin"
+            android:textColor="@color/colorHint"
+            app:layout_constraintStart_toEndOf="@+id/cardView"
+            app:layout_constraintTop_toBottomOf="@+id/habit_name"
+            tools:text="Выпить тархун)" />
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="4dp"
+            android:layout_height="59dp"
+            app:cardBackgroundColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

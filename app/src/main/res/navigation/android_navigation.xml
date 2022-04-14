@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/android_navigation"
+    app:startDestination="@id/viewPagerFragment">
+
+    <fragment
+        android:id = "@+id/redactor"
+        android:name = "com.example.task3.Fragments.HabitRedactor.HabitRedactorFragment"
+        tools:layout = "@layout/redactor_fragment"
+        >
+        <action
+            android:id = "@+id/action_go_home"
+            app:destination = "@+id/last_page_fragment"
+            app:popUpTo="@+id/viewPagerFragment"/>
+
+        <action
+            android:id="@+id/action_redactor_to_viewPagerFragment"
+            app:destination="@id/viewPagerFragment"
+            app:popUpTo="@+id/viewPagerFragment"
+            app:popUpToInclusive="true"/>
+
+    </fragment>
+
+    <fragment
+        android:id = "@+id/viewPagerFragment"
+        android:name = "com.example.task3.Fragments.ViewPagerFragment"
+        tools:layout = "@layout/view_pager">
+
+        <action
+            android:id="@+id/action_goto_redactor"
+            app:destination="@id/redactor"
+            app:popUpTo="@id/redactor"
+            app:popUpToInclusive="true">
+
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_about_app"
+        android:name="com.example.task3.Fragments.InfoFragment"
+        tools:layout="@layout/info_fragment"/>
+
+</navigation>
