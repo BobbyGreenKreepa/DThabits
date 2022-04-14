@@ -21,7 +21,6 @@ import kotlin.math.absoluteValue
 
 class  HabitRedactorFragment: Fragment(){
 
-
     private lateinit var viewModel: RedactorHabitViewModel
     lateinit var colorDialog: DialogFragment
 
