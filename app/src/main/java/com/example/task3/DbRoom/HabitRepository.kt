@@ -1,10 +1,9 @@
 package com.example.task3.DbRoom
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import com.example.task3.Habit
 
-class HabitRepository: Application() {
+class HabitRepository{
 
     val habits: LiveData<List<Habit>> = App.db.HabitDao().getAll()
 

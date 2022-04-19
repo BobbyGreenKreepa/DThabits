@@ -3,21 +3,22 @@ package com.example.task3
 
 import androidx.room.*
 import java.io.Serializable
+import java.util.*
 
 @Entity
 @TypeConverters(Habit.TypeConverter::class, Habit.PriorityConverter::class)
 data class Habit(
-    @ColumnInfo val name: String,
-    @ColumnInfo val description: String,
-    @ColumnInfo val type: HabitType,
-    @ColumnInfo val priority: HabitPriority,
-    @ColumnInfo val time: Int,
-    @ColumnInfo val period: Int,
-    @ColumnInfo var color: Int
+    val name: String,
+    val description: String,
+    val type: HabitType,
+    val priority: HabitPriority,
+    val time: Int,
+    val period: Int,
+    var color: Int
 ) : Serializable {
 
-    @PrimaryKey(autoGenerate = true)
-    var id: Int? = null
+    @PrimaryKey
+    var id = UUID.randomUUID().toString()
 
     enum class HabitType(val value: Int) {
         GOOD(0),

@@ -8,15 +8,23 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.example.task3.Habit
 import com.example.task3.DbRoom.HabitRepository
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlin.coroutines.CoroutineContext
 
 
-class HabitListViewModel : ViewModel(), Filterable {
+class HabitListViewModel : ViewModel(), Filterable, CoroutineScope {
 
     private val mutableHabit = MutableLiveData<List<Habit>>()
     val habits: LiveData<List<Habit>> = mutableHabit
+    private var habitsNotFilteredList = mutableHabit.value
     private  var repositoryDB: HabitRepository = HabitRepository()
     var habitType: Habit.HabitType? = null
-    private var habitsNotFilteredList = mutableHabit.value
+    private val job = SupervisorJob()
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job + CoroutineExceptionHandler{_, e -> throw e}
 
     init {
         onCreate()
@@ -27,6 +35,10 @@ class HabitListViewModel : ViewModel(), Filterable {
             mutableHabit.value = it.filter { el -> el.type == habitType }
             habitsNotFilteredList = mutableHabit.value
         })
+    }
+
+    override fun onCleared() {
+        TODO()
     }
 
     override fun getFilter(): Filter {
