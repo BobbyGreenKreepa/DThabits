@@ -8,10 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.example.task3.Habit
 import com.example.task3.DbRoom.HabitRepository
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 
@@ -19,6 +16,7 @@ class HabitListViewModel : ViewModel(), Filterable, CoroutineScope {
 
     private val mutableHabit = MutableLiveData<List<Habit>>()
     val habits: LiveData<List<Habit>> = mutableHabit
+    private lateinit var observer: Observer<List<Habit>>
     private var habitsNotFilteredList = mutableHabit.value
     private  var repositoryDB: HabitRepository = HabitRepository()
     var habitType: Habit.HabitType? = null
@@ -31,14 +29,16 @@ class HabitListViewModel : ViewModel(), Filterable, CoroutineScope {
     }
 
     private fun onCreate(){
-        repositoryDB.habits.observeForever( Observer { it ->
-            mutableHabit.value = it.filter { el -> el.type == habitType }
+            observer = Observer<List<Habit>> { it ->
+                mutableHabit.value = it.filter { el -> el.type == habitType }
+             }
+            repositoryDB.habits.observeForever(observer)
             habitsNotFilteredList = mutableHabit.value
-        })
-    }
+        }
 
     override fun onCleared() {
-        TODO()
+        repositoryDB.habits.removeObserver(observer)
+        coroutineContext.cancelChildren()
     }
 
     override fun getFilter(): Filter {
@@ -59,15 +59,15 @@ class HabitListViewModel : ViewModel(), Filterable, CoroutineScope {
         }
     }
 
-    fun deleteHabit(habit: Habit) {
-        repositoryDB.removeItem(habit)
+    fun deleteHabit(habit: Habit) = launch {
+        withContext(Dispatchers.Default) { repositoryDB.removeItem(habit) }
     }
 
-    fun sortList(position: Int){
-        when(position){
-            0 -> mutableHabit.value = mutableHabit.value?.sortedBy {el-> el.id }
-            1 -> mutableHabit.value = mutableHabit.value?.sortedBy {el-> el.period / el.time }
-            2 -> mutableHabit.value = mutableHabit.value?.sortedBy {el-> el.priority.value }
+    fun sortList(position: Int) {
+        when (position) {
+            0 -> mutableHabit.value = mutableHabit.value?.sortedBy {el -> el.id }
+            1 -> mutableHabit.value = mutableHabit.value?.sortedBy {el -> el.period / el.time }
+            2 -> mutableHabit.value = mutableHabit.value?.sortedBy {el -> el.priority.value }
         }
     }
 }

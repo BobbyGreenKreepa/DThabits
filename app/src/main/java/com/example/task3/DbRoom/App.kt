@@ -17,8 +17,6 @@ class App: Application() {
         instance = this
         db = Room.databaseBuilder(
             applicationContext,
-            HabitDb::class.java, "database")
-            .allowMainThreadQueries()
-            .build()
+            HabitDb::class.java, "database2").build()
     }
 }
