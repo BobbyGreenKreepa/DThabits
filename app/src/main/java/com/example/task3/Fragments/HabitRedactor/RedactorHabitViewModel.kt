@@ -14,17 +14,13 @@ class RedactorHabitViewModel : ViewModel(), CoroutineScope {
     private val repositoryDB = HabitRepository()
     private val job = SupervisorJob()
     override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + job + CoroutineExceptionHandler{ _, e -> throw e}
+        get() = Dispatchers.IO + job + CoroutineExceptionHandler{ _, e -> throw e}
 
     fun addHabit(habit: Habit) = launch {
-        withContext(Dispatchers.IO){
-            repositoryDB.addHabit(habit)
-        }
+        repositoryDB.addHabit(habit)
     }
 
     fun updateHabit(habit: Habit)= launch {
-        withContext(Dispatchers.IO) {
-            repositoryDB.updateHabit(habit)
-        }
+        repositoryDB.updateHabit(habit)
     }
 }

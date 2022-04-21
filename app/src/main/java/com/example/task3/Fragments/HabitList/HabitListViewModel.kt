@@ -17,12 +17,14 @@ class HabitListViewModel : ViewModel(), Filterable, CoroutineScope {
     private val mutableHabit = MutableLiveData<List<Habit>>()
     val habits: LiveData<List<Habit>> = mutableHabit
     private lateinit var observer: Observer<List<Habit>>
+
     private var habitsNotFilteredList = mutableHabit.value
     private  var repositoryDB: HabitRepository = HabitRepository()
     var habitType: Habit.HabitType? = null
     private val job = SupervisorJob()
+
     override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + job + CoroutineExceptionHandler{_, e -> throw e}
+        get() = Dispatchers.Default + job + CoroutineExceptionHandler{_, e -> throw e}
 
     init {
         onCreate()
@@ -60,14 +62,14 @@ class HabitListViewModel : ViewModel(), Filterable, CoroutineScope {
     }
 
     fun deleteHabit(habit: Habit) = launch {
-        withContext(Dispatchers.Default) { repositoryDB.removeItem(habit) }
+        withContext(Dispatchers.IO){repositoryDB.removeItem(habit)}
     }
 
-    fun sortList(position: Int) {
+    fun sortList(position: Int) = launch {
         when (position) {
-            0 -> mutableHabit.value = mutableHabit.value?.sortedBy {el -> el.id }
-            1 -> mutableHabit.value = mutableHabit.value?.sortedBy {el -> el.period / el.time }
-            2 -> mutableHabit.value = mutableHabit.value?.sortedBy {el -> el.priority.value }
+            0 -> mutableHabit.postValue(mutableHabit.value?.sortedBy {el -> el.id })
+            1 -> mutableHabit.postValue(mutableHabit.value?.sortedBy {el -> el.period / el.time })
+            2 -> mutableHabit.postValue(mutableHabit.value?.sortedBy {el -> el.priority.value })
         }
     }
 }
