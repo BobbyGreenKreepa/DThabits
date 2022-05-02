@@ -1,4 +1,4 @@
-package com.example.task3.Adapters
+package com.example.task3.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context

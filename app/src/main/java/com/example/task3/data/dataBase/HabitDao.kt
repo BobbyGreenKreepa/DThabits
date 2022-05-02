@@ -1,23 +1,22 @@
-package com.example.task3.DbRoom
+package com.example.task3.data.dataBase
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.task3.Habit
+import com.example.task3.converters.dataBaseConverters.HabitPriorityConverter
+import com.example.task3.converters.dataBaseConverters.HabitTypeConverter
 
 
 @Dao
-@TypeConverters(Habit.TypeConverter::class, Habit.PriorityConverter::class)
+@TypeConverters(HabitTypeConverter::class, HabitPriorityConverter::class)
 @Suppress("AndroidUnresolvedRoomSqlReference")
 
 interface HabitDao {
     @Query("SELECT * FROM habit")
-    fun getAll(): LiveData<List<Habit>>
+    fun getAll(): List<Habit>
 
-    @Query("SELECT * FROM Habit WHERE id = :id")
+    @Query("SELECT * FROM Habit WHERE uid = :id")
     fun getById(id: Long): LiveData<Habit?>
-
-    @Query("SELECT * FROM Habit WHERE type = :habitType")
-    fun getByType(habitType: Habit.HabitType): LiveData<List<Habit>>
 
     @Insert
     fun insert(habit: Habit?)

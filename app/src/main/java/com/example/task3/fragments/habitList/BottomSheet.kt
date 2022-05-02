@@ -1,4 +1,4 @@
-package com.example.task3.Fragments.HabitList
+package com.example.task3.fragments.habitList
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.example.task3.Fragments.HabitRedactor
+package com.example.task3.fragments.habitRedactor
 
 import android.os.Bundle
 import android.view.LayoutInflater

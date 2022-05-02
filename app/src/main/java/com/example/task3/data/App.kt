@@ -1,0 +1,45 @@
+package com.example.task3.data
+
+import android.app.Application
+import androidx.room.Room
+import com.example.task3.data.dataBase.HabitsDataBase
+import com.example.task3.data.network.ApiService
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
+class App: Application() {
+
+    companion object {
+        lateinit var instance: App
+        lateinit var db: HabitsDataBase
+        lateinit var questApi: ApiService
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        instance = this
+        db = Room.databaseBuilder(
+            applicationContext,
+            HabitsDataBase::class.java, "database1").build()
+        configureRetrofit()
+    }
+
+    private fun configureRetrofit(){
+        val httpLoggingInterceptor = HttpLoggingInterceptor()
+        httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
+        val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor(httpLoggingInterceptor)
+            .build()
+
+        val retrofit = Retrofit.Builder()
+            .client(okHttpClient)
+            .baseUrl("https://droid-test-server.doubletapp.ru/swagger/index.html#/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        questApi = retrofit.create(ApiService::class.java)
+    }
+}

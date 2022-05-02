@@ -1,4 +1,4 @@
-package com.example.task3.Fragments
+package com.example.task3.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import com.example.task3.Adapters.HabitPagerAdapter
-import com.example.task3.Fragments.HabitList.HabitListFragment
-import com.example.task3.Habit
+import com.example.task3.adapters.HabitPagerAdapter
+import com.example.task3.fragments.habitList.HabitListFragment
 import com.example.task3.R
+import com.example.task3.values.habitValues.HabitType
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.view_pager.*
 import kotlinx.android.synthetic.main.view_pager.view.*
@@ -24,8 +24,8 @@ class ViewPagerFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.view_pager, container, false)
         val fragmentList = arrayListOf<Fragment>(
-            HabitListFragment.newInstance(Habit.HabitType.GOOD),
-            HabitListFragment.newInstance(Habit.HabitType.BAD)
+            HabitListFragment.newInstance(HabitType.GOOD),
+            HabitListFragment.newInstance(HabitType.BAD)
         )
         val adapter = HabitPagerAdapter(
             activity as AppCompatActivity,

@@ -1,4 +1,4 @@
-package com.example.task3.Fragments.HabitRedactor
+package com.example.task3.fragments.habitRedactor
 
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -15,7 +15,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.task3.*
-import com.example.task3.Fragments.HabitList.HabitListFragment
+import com.example.task3.values.habitValues.HabitPriority
+import com.example.task3.values.habitValues.HabitType
+import com.example.task3.fragments.habitList.HabitListFragment
 import kotlinx.android.synthetic.main.redactor_fragment.*
 import kotlin.math.absoluteValue
 
@@ -68,8 +70,8 @@ class  HabitRedactorFragment: Fragment(){
         edit_days.setText(habit.period.toString())
         edit_times.setText(habit.time.toString())
         when (habit.type) {
-            Habit.HabitType.GOOD -> radioGroup.check(R.id.first_radio)
-            Habit.HabitType.BAD -> radioGroup.check(R.id.second_radio)
+            HabitType.GOOD -> radioGroup.check(R.id.first_radio)
+            HabitType.BAD -> radioGroup.check(R.id.second_radio)
         }
         viewModel.color.value = habit.color
         val state = ColorStateList.valueOf(habit.color.absoluteValue)
@@ -112,7 +114,7 @@ class  HabitRedactorFragment: Fragment(){
     private fun saveChangedData(habit: Habit) {
         if (fillHabitData()) {
             val newHabit = collectHabit()
-            newHabit.id = habit.id
+            newHabit.uid = habit.uid
             viewModel.updateHabit(newHabit)
             backToHabitList()
         }
@@ -121,8 +123,8 @@ class  HabitRedactorFragment: Fragment(){
     private fun collectHabit(): Habit {
         return Habit(
             edit_habit_name.text.toString(), edit_description.text.toString(),
-            Habit.HabitType.fromInt(radioGroup.indexOfChild(requireView().findViewById(radioGroup.checkedRadioButtonId))),
-            Habit.HabitPriority.fromInt(spinner.selectedItemPosition),
+            HabitType.fromInt(radioGroup.indexOfChild(requireView().findViewById(radioGroup.checkedRadioButtonId))),
+            HabitPriority.fromInt(spinner.selectedItemPosition),
             Integer.valueOf(edit_times.text.toString()),
             Integer.valueOf(edit_days.text.toString()),
             viewModel.color.value!!

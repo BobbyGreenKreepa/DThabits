@@ -1,4 +1,4 @@
-package com.example.task3.Adapters
+package com.example.task3.adapters
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment

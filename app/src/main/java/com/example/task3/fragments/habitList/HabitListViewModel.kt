@@ -1,30 +1,26 @@
-package com.example.task3.Fragments.HabitList
+package com.example.task3.fragments.habitList
 
 import android.widget.Filter
 import android.widget.Filterable
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.example.task3.Habit
-import com.example.task3.DbRoom.HabitRepository
+import com.example.task3.data.Repository
+import com.example.task3.data.network.ApiService
+import com.example.task3.values.habitValues.HabitType
+import com.example.task3.data.repositories.DataBaseRepository
+import com.example.task3.data.repositories.NetworkRepository
 import kotlinx.coroutines.*
-import kotlin.coroutines.CoroutineContext
 
 
-class HabitListViewModel : ViewModel(), Filterable, CoroutineScope {
+class HabitListViewModel : ViewModel(), Filterable {
 
     private val mutableHabit = MutableLiveData<List<Habit>>()
     val habits: LiveData<List<Habit>> = mutableHabit
     private lateinit var observer: Observer<List<Habit>>
 
     private var habitsNotFilteredList = mutableHabit.value
-    private  var repositoryDB: HabitRepository = HabitRepository()
-    var habitType: Habit.HabitType? = null
-    private val job = SupervisorJob()
-
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Default + job + CoroutineExceptionHandler{_, e -> throw e}
+    private  var repository: Repository = Repository(DataBaseRepository(), NetworkRepository())
+    var habitType: HabitType? = null
 
     init {
         onCreate()
@@ -34,13 +30,12 @@ class HabitListViewModel : ViewModel(), Filterable, CoroutineScope {
             observer = Observer<List<Habit>> { it ->
                 mutableHabit.value = it.filter { el -> el.type == habitType }
              }
-            repositoryDB.habits.observeForever(observer)
+            repository.habits.observeForever(observer)
             habitsNotFilteredList = mutableHabit.value
         }
 
     override fun onCleared() {
-        repositoryDB.habits.removeObserver(observer)
-        coroutineContext.cancelChildren()
+        repository.habits.removeObserver(observer)
     }
 
     override fun getFilter(): Filter {
@@ -61,13 +56,13 @@ class HabitListViewModel : ViewModel(), Filterable, CoroutineScope {
         }
     }
 
-    fun deleteHabit(habit: Habit) = launch {
-        withContext(Dispatchers.IO){repositoryDB.removeItem(habit)}
+    fun deleteHabit(habit: Habit) = viewModelScope.launch {
+        withContext(Dispatchers.IO){repository.deleteHabit(habit)}
     }
 
-    fun sortList(position: Int) = launch {
+    fun sortList(position: Int) = viewModelScope.launch {
         when (position) {
-            0 -> mutableHabit.postValue(mutableHabit.value?.sortedBy {el -> el.id })
+            0 -> mutableHabit.postValue(mutableHabit.value?.sortedBy {el -> el.uid })
             1 -> mutableHabit.postValue(mutableHabit.value?.sortedBy {el -> el.period / el.time })
             2 -> mutableHabit.postValue(mutableHabit.value?.sortedBy {el -> el.priority.value })
         }

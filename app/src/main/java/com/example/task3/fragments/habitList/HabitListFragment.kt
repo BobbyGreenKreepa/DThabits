@@ -1,4 +1,4 @@
-package com.example.task3.Fragments.HabitList
+package com.example.task3.fragments.habitList
 
 import android.os.Bundle
 import android.view.*
@@ -10,8 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.task3.*
-import com.example.task3.Adapters.HabitAdapter
-import com.example.task3.Adapters.SuperGestureDetector
+import com.example.task3.adapters.HabitAdapter
+import com.example.task3.adapters.SuperGestureDetector
+import com.example.task3.values.habitValues.HabitType
 import kotlinx.android.synthetic.main.habits_fragment.*
 
 
@@ -26,7 +27,7 @@ class HabitListFragment : Fragment(),
         const val ADD_HABIT = "addHabit"
         const val CHANGE_HABIT = "changeHabit"
         const val HABIT_TYPE = "habit_type"
-        fun newInstance(habitType: Habit.HabitType): HabitListFragment {
+        fun newInstance(habitType: HabitType): HabitListFragment {
             val fragment = HabitListFragment()
             val bundle = Bundle()
             bundle.putSerializable(HABIT_TYPE, habitType)
@@ -45,7 +46,7 @@ class HabitListFragment : Fragment(),
         savedInstanceState: Bundle?
     ): View? {
         val habitType =
-            this@HabitListFragment.arguments?.getSerializable(HABIT_TYPE) as Habit.HabitType
+            this@HabitListFragment.arguments?.getSerializable(HABIT_TYPE) as HabitType
 
         viewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
