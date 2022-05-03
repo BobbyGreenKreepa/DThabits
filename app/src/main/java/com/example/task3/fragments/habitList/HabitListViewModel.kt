@@ -19,7 +19,7 @@ class HabitListViewModel : ViewModel(), Filterable {
     private lateinit var observer: Observer<List<Habit>>
 
     private var habitsNotFilteredList = mutableHabit.value
-    private  var repository: Repository = Repository(DataBaseRepository(), NetworkRepository())
+    private  var repository: Repository = Repository()
     var habitType: HabitType? = null
 
     init {

@@ -22,7 +22,9 @@ class App: Application() {
         instance = this
         db = Room.databaseBuilder(
             applicationContext,
-            HabitsDataBase::class.java, "database1").build()
+            HabitsDataBase::class.java, "database3")
+            .allowMainThreadQueries()
+            .build()
         configureRetrofit()
     }
 
@@ -36,7 +38,7 @@ class App: Application() {
 
         val retrofit = Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl("https://droid-test-server.doubletapp.ru/swagger/index.html#/")
+            .baseUrl("https://droid-test-server.doubletapp.ru/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

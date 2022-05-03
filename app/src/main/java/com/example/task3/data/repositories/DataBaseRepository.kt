@@ -6,9 +6,7 @@ import com.example.task3.data.App
 
 class DataBaseRepository {
 
-    fun getHabits(){
-        App.db.HabitDao().getAll()
-    }
+    fun getHabits(): LiveData<List<Habit>> = App.db.HabitDao().getAll()
 
     fun addHabit(habit: Habit) {
         App.db.HabitDao().insert(habit)
@@ -20,5 +18,9 @@ class DataBaseRepository {
 
     fun deleteHabit(habit: Habit) {
         App.db.HabitDao().delete(habit)
+    }
+
+    fun putHabit(habit: Habit) {
+        App.db.HabitDao().insert(habit)
     }
 }

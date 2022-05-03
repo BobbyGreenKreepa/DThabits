@@ -1,5 +1,6 @@
 package com.example.task3.data.network
 
+import androidx.lifecycle.LiveData
 import com.example.task3.Habit
 import com.example.task3.values.networkValues.NetworkAuthorization
 import com.example.task3.values.networkValues.NetworkPaths
@@ -13,16 +14,15 @@ interface ApiService {
 
     @GET(NetworkPaths.DEFAULT_PATH)
     suspend fun getHabits(@Header(NetworkAuthorization.DEFAULT_AUTHORIZATION)
-                                  token: String): ArrayList<Habit>
+                                  token: String): List<Habit>
 
     @PUT(NetworkPaths.DEFAULT_PATH)
     suspend fun putHabit(@Header(NetworkAuthorization.DEFAULT_AUTHORIZATION)
                              token:String,
                          @Body habit: Habit): String
 
-    @POST(NetworkPaths.DEFAULT_PATH)
-    suspend fun deleteHabit(@Header(NetworkAuthorization.DEFAULT_AUTHORIZATION) token: String,
-                    @Body uid: String): Void
+    @HTTP(method = "DELETE", path = NetworkPaths.DEFAULT_PATH, hasBody = true)
+    fun deleteHabit(@Header("Authorization") token: String, @Body uid: String): Call<Void>
 
     @POST(NetworkPaths.DONE_PATH)
     suspend fun postHabit(@Header(NetworkAuthorization.DEFAULT_AUTHORIZATION) token:String,

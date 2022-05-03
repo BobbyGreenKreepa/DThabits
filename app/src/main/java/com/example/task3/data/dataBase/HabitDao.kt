@@ -13,7 +13,7 @@ import com.example.task3.converters.dataBaseConverters.HabitTypeConverter
 
 interface HabitDao {
     @Query("SELECT * FROM habit")
-    fun getAll(): List<Habit>
+    fun getAll(): LiveData<List<Habit>>
 
     @Query("SELECT * FROM Habit WHERE uid = :id")
     fun getById(id: Long): LiveData<Habit?>

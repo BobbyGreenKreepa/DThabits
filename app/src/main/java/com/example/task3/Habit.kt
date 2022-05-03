@@ -17,6 +17,7 @@ data class Habit(
     val description: String,
     val type: HabitType,
     val priority: HabitPriority,
+    @SerializedName("count")
     val time: Int,
     @SerializedName("frequency")
     val period: Int,
