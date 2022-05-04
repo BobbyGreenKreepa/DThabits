@@ -16,9 +16,9 @@ class NetworkRepository(private val questApi: ApiService) {
         NetworkToken.TOKEN,
         habit)
 
-    fun deleteHabit(habit: Habit) = questApi.deleteHabit(
+    suspend fun deleteHabit(uid: String) = questApi.deleteHabit(
         NetworkToken.TOKEN,
-        habit.uid)
+        uid)
 
     suspend fun postHabit(habit: Habit): Void = questApi.postHabit(
         NetworkToken.TOKEN,

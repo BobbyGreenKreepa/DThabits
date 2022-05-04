@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.example.task3.data.dataBase.HabitsDataBase
 import com.example.task3.data.network.ApiService
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -33,6 +34,16 @@ class App: Application() {
         httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
         val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor{chain ->
+                val request: Request = chain.request()
+                var response = chain.proceed(request)
+                var connectionTryCounter = 0
+                if (!(response.isSuccessful) && connectionTryCounter < 5) {
+                    connectionTryCounter++
+                    response = chain.proceed(request)
+                }
+                response
+            }
             .addInterceptor(httpLoggingInterceptor)
             .build()
 

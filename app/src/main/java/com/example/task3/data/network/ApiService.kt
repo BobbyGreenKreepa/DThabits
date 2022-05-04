@@ -22,7 +22,7 @@ interface ApiService {
                          @Body habit: Habit): String
 
     @HTTP(method = "DELETE", path = NetworkPaths.DEFAULT_PATH, hasBody = true)
-    fun deleteHabit(@Header("Authorization") token: String, @Body uid: String): Call<Void>
+    suspend fun deleteHabit(@Header("Authorization") token: String, @Body uid: String): Void
 
     @POST(NetworkPaths.DONE_PATH)
     suspend fun postHabit(@Header(NetworkAuthorization.DEFAULT_AUTHORIZATION) token:String,
