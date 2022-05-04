@@ -2,6 +2,7 @@ package com.example.task3
 
 import android.content.Context
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -10,6 +11,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.task3.fragments.infoFragment.AvatarLinkGetterDialog
 import com.google.android.material.navigation.NavigationView
 
 
@@ -30,6 +32,10 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
+        val avatar = navView.getHeaderView(0).findViewById<ImageView>(R.id.avatar)
+        avatar.setOnClickListener{
+            AvatarLinkGetterDialog().show(supportFragmentManager, "avatar_choose")
+        }
         val navController = findNavController(R.id.my_nav_host_fragment)
         appBarConfiguration = AppBarConfiguration(
             setOf(

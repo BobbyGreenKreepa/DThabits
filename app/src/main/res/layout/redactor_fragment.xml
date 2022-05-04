@@ -130,7 +130,7 @@
                     app:drawableRightCompat="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+                    app:layout_constraintTop_toBottomOf="@+id/link_getter_description" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/color_button"
@@ -144,7 +144,7 @@
                     app:layout_constraintTop_toTopOf="@+id/textView2" />
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/link_getter_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -163,9 +163,9 @@
                     android:hint="7"
                     android:textColor="@color/colorHint"
                     android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView"
-                    app:layout_constraintStart_toEndOf="@+id/textView"
-                    app:layout_constraintTop_toTopOf="@+id/textView"
+                    app:layout_constraintBottom_toBottomOf="@+id/link_getter_description"
+                    app:layout_constraintStart_toEndOf="@+id/link_getter_description"
+                    app:layout_constraintTop_toTopOf="@+id/link_getter_description"
                     android:layout_marginLeft="8dp" />
 
                 <TextView

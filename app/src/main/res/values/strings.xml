@@ -2,7 +2,9 @@
     <string name="in">в</string>
     <string name="repeat">Повторять</string>
     <string name="delete">Удалить</string>
+    <string name="button_load">Загрузить</string>
     <string name="button_save">Сохранить</string>
+    <string name="link_getter_text">Введите ссылку на изображение</string>
     <string name="color_choose_text">Выберите цвет</string>
     <string name="app_name">My Habits</string>
     <string name="hint_habit_name">Название</string>
