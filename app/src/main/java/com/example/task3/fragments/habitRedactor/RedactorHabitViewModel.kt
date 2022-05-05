@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.task3.Habit
 import com.example.task3.data.Repository
-import com.example.task3.data.repositories.DataBaseRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -18,7 +17,7 @@ class RedactorHabitViewModel : ViewModel(){
 
 
     fun addHabit(habit: Habit) = viewModelScope.launch {
-        withContext(Dispatchers.IO){repository.putHabit(habit)}
+        withContext(Dispatchers.IO){repository.addHabit(habit)}
     }
 
     fun updateHabit(habit: Habit)= viewModelScope.launch {

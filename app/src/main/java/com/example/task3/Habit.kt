@@ -17,14 +17,14 @@ data class Habit(
     val description: String,
     val type: HabitType,
     val priority: HabitPriority,
-    @SerializedName("count")
     val time: Int,
-    @SerializedName("frequency")
     val period: Int,
     var color: Int
 ) : Serializable {
 
     @PrimaryKey
-    var uid = UUID.randomUUID().toString()
+    var id = UUID.randomUUID().toString()
+    var uid: String? = null
     var date: Int = 0
+    var title: String = "Example"
 }

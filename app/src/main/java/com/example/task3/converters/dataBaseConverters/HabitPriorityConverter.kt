@@ -5,15 +5,15 @@ import com.example.task3.values.habitValues.HabitPriority
 class HabitPriorityConverter {
 
     @androidx.room.TypeConverter
-    fun fromPriority(priority: HabitPriority): String {
-        return priority.toString()
+    fun fromPriority(priority: HabitPriority): Int {
+        return priority.value
     }
 
     @androidx.room.TypeConverter
-    fun toPriority(data: String): HabitPriority {
+    fun toPriority(data: Int): HabitPriority {
         return when (data) {
-            "Высокий" -> HabitPriority.HIGH
-            "Средний" -> HabitPriority.MEDIUM
+            HabitPriority.HIGH.value -> HabitPriority.HIGH
+            HabitPriority.MEDIUM.value -> HabitPriority.MEDIUM
             else -> HabitPriority.LOW
         }
     }

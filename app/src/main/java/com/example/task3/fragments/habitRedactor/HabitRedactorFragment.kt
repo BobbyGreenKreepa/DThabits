@@ -66,7 +66,7 @@ class  HabitRedactorFragment: Fragment(){
     private fun updateText(habit: Habit) {
         edit_habit_name.setText(habit.name)
         edit_description.setText(habit.description)
-        spinner.setSelection(habit.priority.value)
+        spinner.setSelection(habit.priority!!.value)
         edit_days.setText(habit.period.toString())
         edit_times.setText(habit.time.toString())
         when (habit.type) {

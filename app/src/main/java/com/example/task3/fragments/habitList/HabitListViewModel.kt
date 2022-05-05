@@ -64,7 +64,7 @@ class HabitListViewModel : ViewModel(), Filterable {
         when (position) {
             0 -> mutableHabit.postValue(mutableHabit.value?.sortedBy {el -> el.uid })
             1 -> mutableHabit.postValue(mutableHabit.value?.sortedBy {el -> el.period / el.time })
-            2 -> mutableHabit.postValue(mutableHabit.value?.sortedBy {el -> el.priority.value })
+            2 -> mutableHabit.postValue(mutableHabit.value?.sortedBy {el -> el.priority?.value })
         }
     }
 }

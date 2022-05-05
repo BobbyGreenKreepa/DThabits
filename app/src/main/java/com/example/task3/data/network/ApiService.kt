@@ -1,12 +1,8 @@
 package com.example.task3.data.network
 
-import androidx.lifecycle.LiveData
 import com.example.task3.Habit
 import com.example.task3.values.networkValues.NetworkAuthorization
 import com.example.task3.values.networkValues.NetworkPaths
-import com.example.task3.values.networkValues.NetworkToken
-import com.google.gson.internal.LinkedTreeMap
-import retrofit2.Call
 import retrofit2.http.*
 
 
@@ -14,12 +10,13 @@ interface ApiService {
 
     @GET(NetworkPaths.DEFAULT_PATH)
     suspend fun getHabits(@Header(NetworkAuthorization.DEFAULT_AUTHORIZATION)
-                                  token: String): List<Habit>
+                                  token: String): List<HabitNet>
 
     @PUT(NetworkPaths.DEFAULT_PATH)
     suspend fun putHabit(@Header(NetworkAuthorization.DEFAULT_AUTHORIZATION)
                              token:String,
-                         @Body habit: Habit): String
+                         @Body habit: HabitNet
+    ): String
 
     @HTTP(method = "DELETE", path = NetworkPaths.DEFAULT_PATH, hasBody = true)
     suspend fun deleteHabit(@Header("Authorization") token: String, @Body uid: String): Void
