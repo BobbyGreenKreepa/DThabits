@@ -23,4 +23,6 @@ class RedactorHabitViewModel : ViewModel(){
     fun updateHabit(habit: Habit)= viewModelScope.launch {
         withContext(Dispatchers.IO){repository.updateHabit(habit)}
     }
+
 }
+

@@ -23,7 +23,7 @@ class App: Application() {
         instance = this
         db = Room.databaseBuilder(
             applicationContext,
-            HabitsDataBase::class.java, "database2.3")
+            HabitsDataBase::class.java, "database4.0")
             .allowMainThreadQueries()
             .build()
         configureRetrofit()
@@ -38,7 +38,7 @@ class App: Application() {
                 val request: Request = chain.request()
                 var response = chain.proceed(request)
                 var connectionTryCounter = 0
-                if (!(response.isSuccessful) && connectionTryCounter < 5) {
+                while (!(response.isSuccessful) && connectionTryCounter < 5) {
                     connectionTryCounter++
                     response = chain.proceed(request)
                 }

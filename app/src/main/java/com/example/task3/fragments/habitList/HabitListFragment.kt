@@ -70,7 +70,7 @@ class HabitListFragment : Fragment(),
 
     private fun observeViewModels() {
         viewModel.habits.observe(viewLifecycleOwner, Observer {
-            it.let {
+            it?.let {
                 (habit_list.adapter as HabitAdapter).refreshHabits(
                     it
                 )

@@ -10,21 +10,14 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 import java.util.*
 
-@Entity
-@TypeConverters(HabitTypeConverter::class, HabitPriorityConverter::class)
 data class Habit(
-    val name: String,
+    val title: String,
     val description: String,
     val type: HabitType,
     val priority: HabitPriority,
-    val time: Int,
-    val period: Int,
-    var color: Int
-) : Serializable {
-
-    @PrimaryKey
-    var id = UUID.randomUUID().toString()
-    var uid: String? = null
-    var date: Int = 0
-    var title: String = "Example"
-}
+    val count: Int,
+    val frequency: Int,
+    var color: Int,
+    var uid: String = "",
+    var date: Int = 1
+): Serializable

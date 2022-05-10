@@ -5,10 +5,7 @@ import android.widget.Filterable
 import androidx.lifecycle.*
 import com.example.task3.Habit
 import com.example.task3.data.Repository
-import com.example.task3.data.network.ApiService
 import com.example.task3.values.habitValues.HabitType
-import com.example.task3.data.repositories.DataBaseRepository
-import com.example.task3.data.repositories.NetworkRepository
 import kotlinx.coroutines.*
 
 
@@ -29,13 +26,12 @@ class HabitListViewModel : ViewModel(), Filterable {
     private fun onCreate(){
             observer = Observer<List<Habit>> { it ->
                 mutableHabit.value = it.filter { el -> el.type == habitType }
-             }
-            repository.habits.observeForever(observer)
-            habitsNotFilteredList = mutableHabit.value
+            habitsNotFilteredList = mutableHabit.value}
+        viewModelScope.launch { repository.getHabits().observeForever(observer) }
         }
 
     override fun onCleared() {
-        repository.habits.removeObserver(observer)
+        habits.removeObserver(observer)
     }
 
     override fun getFilter(): Filter {
@@ -46,7 +42,7 @@ class HabitListViewModel : ViewModel(), Filterable {
                 if (searchString.isEmpty())
                     searchResult.values =  habitsNotFilteredList
                 else
-                    searchResult.values = habits.value?.filter{ it.name.contains(searchString)}
+                    searchResult.values = habits.value?.filter{ it.title.contains(searchString)}
                 return searchResult
             }
 
@@ -63,7 +59,7 @@ class HabitListViewModel : ViewModel(), Filterable {
     fun sortList(position: Int) = viewModelScope.launch {
         when (position) {
             0 -> mutableHabit.postValue(mutableHabit.value?.sortedBy {el -> el.uid })
-            1 -> mutableHabit.postValue(mutableHabit.value?.sortedBy {el -> el.period / el.time })
+            1 -> mutableHabit.postValue(mutableHabit.value?.sortedBy {el -> el.frequency / el.count })
             2 -> mutableHabit.postValue(mutableHabit.value?.sortedBy {el -> el.priority?.value })
         }
     }

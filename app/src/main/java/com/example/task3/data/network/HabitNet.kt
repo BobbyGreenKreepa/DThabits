@@ -1,55 +1,37 @@
 package com.example.task3.data.network
 
-import com.example.task3.Habit
-import com.example.task3.converters.dataBaseConverters.HabitPriorityConverter
-import com.example.task3.converters.dataBaseConverters.HabitTypeConverter
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-data class HabitNet(
+
+@Entity
+class HabitNet(
+    @SerializedName("title")
     val title: String,
-    val name: String,
+
+    @SerializedName("description")
     val description: String,
+
+    @SerializedName("type")
     val type: Int,
+
+    @SerializedName("priority")
     val priority: Int,
+
     @SerializedName("count")
-    val time: Int,
+    val count: Int,
+
     @SerializedName("frequency")
-    val period: Int,
-    var color: Int,
-    var uid: String?,
-    var date: Int
+    val frequency: Int,
+
+    @SerializedName("color")
+    val color: Int,
+
+    @SerializedName("date")
+    val date: Int,
+
+    @PrimaryKey
+    @SerializedName("uid")
+    var uid: String = ""
 )
-
-class HabitNetConverter{
-
-    fun toHabitNet(habit: Habit): HabitNet {
-        return HabitNet(
-            habit.title,
-            habit.name,
-            habit.description,
-            HabitTypeConverter().fromType(habit.type),
-            HabitPriorityConverter().fromPriority(habit.priority),
-            habit.time,
-            habit.period,
-            habit.color,
-            habit.uid,
-            habit.date
-        )
-    }
-
-    fun toHabit(habitNet: HabitNet): Habit {
-        val habit =  Habit(
-            habitNet.name,
-            habitNet.description,
-            HabitTypeConverter().toType(habitNet.type),
-            HabitPriorityConverter().toPriority(habitNet.priority),
-            habitNet.time,
-            habitNet.period,
-            habitNet.color
-        )
-        habit.uid = habitNet.uid
-        return habit
-    }
-
-
-}

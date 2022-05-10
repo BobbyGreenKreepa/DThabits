@@ -24,7 +24,7 @@ import kotlin.math.absoluteValue
 class  HabitRedactorFragment: Fragment(){
 
     private lateinit var viewModel: RedactorHabitViewModel
-    lateinit var colorDialog: DialogFragment
+    private lateinit var colorDialog: DialogFragment
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,11 +64,11 @@ class  HabitRedactorFragment: Fragment(){
     }
 
     private fun updateText(habit: Habit) {
-        edit_habit_name.setText(habit.name)
+        edit_habit_name.setText(habit.title)
         edit_description.setText(habit.description)
-        spinner.setSelection(habit.priority!!.value)
-        edit_days.setText(habit.period.toString())
-        edit_times.setText(habit.time.toString())
+        spinner.setSelection(habit.priority.value)
+        edit_days.setText(habit.frequency.toString())
+        edit_times.setText(habit.count.toString())
         when (habit.type) {
             HabitType.GOOD -> radioGroup.check(R.id.first_radio)
             HabitType.BAD -> radioGroup.check(R.id.second_radio)

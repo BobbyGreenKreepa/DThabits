@@ -43,10 +43,10 @@ class HabitAdapter(private val context: Context?)
         @SuppressLint("SetTextI18n")
         @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
         fun bind(habit: Habit) {
-            val times = context?.resources?.getQuantityString(R.plurals.count, habit.time, habit.time)
-            val days = context?.resources?.getQuantityString(R.plurals.times, habit.period, habit.period)
+            val times = context?.resources?.getQuantityString(R.plurals.count, habit.count, habit.count)
+            val days = context?.resources?.getQuantityString(R.plurals.times, habit.frequency, habit.frequency)
 
-            containerView.habit_name.text = habit.name
+            containerView.habit_name.text = habit.title
             containerView.habit_description.text = "${context?.getString(R.string.repeat)} $times ${context?.getString(R.string.`in`)} $days"
             containerView.cardView.backgroundTintList = ColorStateList.valueOf(habit.color)
         }

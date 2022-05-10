@@ -1,29 +1,38 @@
 package com.example.task3.data.repositories
 
 import com.example.task3.Habit
+import com.example.task3.converters.dataBaseConverters.DomainHabitToNetMapper
+import com.example.task3.converters.dataBaseConverters.HabitNetToDomainMapper
 import com.example.task3.data.network.ApiService
-import com.example.task3.data.network.HabitNet
-import com.example.task3.values.networkValues.NetworkToken
 
 class NetworkRepository(private val questApi: ApiService) {
 
+    companion object {
+        const val TOKEN = "7af52d9e-b8d1-4e9c-9682-be3e8dbddff2"
+        const val PATH = "api/habit"
+        const val HABIT_DONE_PATH = "api/done_habit"
+        const val HEADER = "Authorization"
 
-    suspend fun getHabits(): List<HabitNet> {
-        return questApi.getHabits(
-            NetworkToken.TOKEN
-        )
     }
-    suspend fun putHabit(habitNet: HabitNet): String = questApi.putHabit(
-        NetworkToken.TOKEN,
-        habitNet)
 
-    suspend fun deleteHabit(uid: String) = questApi.deleteHabit(
-        NetworkToken.TOKEN,
-        uid)
+    private val domainHabitToNetMapper = DomainHabitToNetMapper()
+    private val habitNetToDomainMapper = HabitNetToDomainMapper()
 
-    suspend fun postHabit(habit: Habit): Void = questApi.postHabit(
-        NetworkToken.TOKEN,
+    suspend fun getHabits(): List<Habit> = questApi.getHabits(TOKEN).map(habitNetToDomainMapper)
+
+    suspend fun putHabit(habit: Habit): String = questApi.putHabit(
+        TOKEN,
+        domainHabitToNetMapper(habit)
+    )
+
+    suspend fun deleteHabit(habit: Habit) = questApi.deleteHabit(
+        TOKEN,
+        habit.uid
+    )
+
+    suspend fun postHabit(habit: Habit) = questApi.postHabit(
+        TOKEN,
         habit.date,
-        habit.uid!!)
-
+        habit.uid
+    )
 }
