@@ -10,7 +10,10 @@ interface HabitDao {
     @Query("SELECT * FROM HabitNet")
     fun getAll(): LiveData<List<HabitNet>>
 
-    @Insert
+    @Query("SELECT * FROM HabitNet WHERE uid LIKE :uid")
+    fun getByUid(uid: String): HabitNet?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(habitNet: HabitNet?)
 
     @Update

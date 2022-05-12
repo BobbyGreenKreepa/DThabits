@@ -1,5 +1,6 @@
 package com.example.task3.fragments.habitRedactor
 
+import android.app.ProgressDialog
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Build
@@ -23,7 +24,7 @@ import kotlin.math.absoluteValue
 class  HabitRedactorFragment: Fragment(){
 
     private lateinit var viewModel: RedactorHabitViewModel
-    private lateinit var colorDialog: DialogFragment
+    private var progressDialog: ProgressDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,7 +45,7 @@ class  HabitRedactorFragment: Fragment(){
         viewModel.color.observe(viewLifecycleOwner, Observer {
             color_button.backgroundTintList = ColorStateList.valueOf(it)
         })
-        colorDialog = ColorPickerDialog()
+
         when (arguments?.getString(HabitListFragment.TASK_KEY)) {
 
             HabitListFragment.ADD_HABIT -> habit_save_button.setOnClickListener { saveNewData() }
@@ -57,7 +58,9 @@ class  HabitRedactorFragment: Fragment(){
             }
             else -> throw IllegalArgumentException("Name required")
         }
+
         color_button.setOnClickListener {
+            val colorDialog = ColorPickerDialog()
             colorDialog.show(childFragmentManager, "Color Picker")
         }
     }
@@ -107,10 +110,17 @@ class  HabitRedactorFragment: Fragment(){
     }
 
     private fun saveNewData() {
+
         if (fillHabitData()) {
+
             val habit = collectHabit()
-            viewModel.addHabit(habit)
-            backToHabitList()
+            progressDialog = ProgressDialog.show(context, "Loading", "")
+
+            viewModel.addHabit(habit).invokeOnCompletion {
+
+                progressDialog?.hide()
+                backToHabitList()
+            }
         }
     }
 
@@ -119,8 +129,13 @@ class  HabitRedactorFragment: Fragment(){
         if (fillHabitData()) {
             val newHabit = collectHabit()
             newHabit.uid = habit.uid
-            viewModel.updateHabit(newHabit)
-            backToHabitList()
+            newHabit.date = habit.date
+            progressDialog = ProgressDialog.show(context, "Loading", "")
+            viewModel.updateHabit(newHabit).invokeOnCompletion {
+
+                progressDialog?.hide()
+                backToHabitList()
+            }
         }
     }
 

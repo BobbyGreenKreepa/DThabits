@@ -10,18 +10,22 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class RedactorHabitViewModel : ViewModel(){
+class RedactorHabitViewModel : ViewModel() {
 
     val color: MutableLiveData<Int> = MutableLiveData(Color.BLUE)
     private val repository = Repository()
 
 
     fun addHabit(habit: Habit) = viewModelScope.launch {
-        withContext(Dispatchers.IO){repository.addHabit(habit)}
+        withContext(Dispatchers.IO) {
+            repository.addHabit(habit)
+        }
     }
 
-    fun updateHabit(habit: Habit)= viewModelScope.launch {
-        withContext(Dispatchers.IO){repository.updateHabit(habit)}
+    fun updateHabit(habit: Habit) = viewModelScope.launch {
+        withContext(Dispatchers.IO) {
+            repository.updateHabit(habit)
+        }
     }
 
 }

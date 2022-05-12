@@ -125,9 +125,10 @@ class HabitListFragment : Fragment(),
 
     override fun onItemRemove(position: Int) {
         if (position >= 0 && position < habit_list.adapter!!.itemCount) {
-            viewModel.deleteHabit(viewModel.habits.value!![position])
-            habit_list.adapter!!.notifyItemRemoved(position)
-            superGestureDetector.confirmDeletion()
+            viewModel.deleteHabit(viewModel.habits.value!![position]).invokeOnCompletion {
+                habit_list.adapter!!.notifyItemRemoved(position)
+                superGestureDetector.confirmDeletion()
+            }
         }
     }
 }

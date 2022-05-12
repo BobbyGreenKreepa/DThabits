@@ -4,6 +4,9 @@ import com.example.task3.Habit
 import com.example.task3.converters.dataBaseConverters.DomainHabitToNetMapper
 import com.example.task3.converters.dataBaseConverters.HabitNetToDomainMapper
 import com.example.task3.data.network.ApiService
+import com.example.task3.data.network.DeleteHabitRequest
+import com.example.task3.data.network.PutHabitResponse
+import com.google.gson.annotations.SerializedName
 
 class NetworkRepository(private val questApi: ApiService) {
 
@@ -18,16 +21,16 @@ class NetworkRepository(private val questApi: ApiService) {
     private val domainHabitToNetMapper = DomainHabitToNetMapper()
     private val habitNetToDomainMapper = HabitNetToDomainMapper()
 
-    suspend fun getHabits(): List<Habit> = questApi.getHabits(TOKEN).map(habitNetToDomainMapper)
+    suspend fun getHabits() = questApi.getHabits(TOKEN)?.map(habitNetToDomainMapper)
 
-    suspend fun putHabit(habit: Habit): String = questApi.putHabit(
+    suspend fun putHabit(habit: Habit) = questApi.putHabit(
         TOKEN,
         domainHabitToNetMapper(habit)
     )
 
     suspend fun deleteHabit(habit: Habit) = questApi.deleteHabit(
         TOKEN,
-        habit.uid
+        DeleteHabitRequest(habit.uid)
     )
 
     suspend fun postHabit(habit: Habit) = questApi.postHabit(
