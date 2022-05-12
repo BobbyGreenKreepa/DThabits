@@ -8,28 +8,28 @@ import com.google.gson.annotations.SerializedName
 @Entity
 class HabitNet(
     @SerializedName("title")
-    val title: String,
+    var title: String,
 
     @SerializedName("description")
-    val description: String,
+    var description: String,
 
     @SerializedName("type")
-    val type: Int,
+    var type: Int,
 
     @SerializedName("priority")
-    val priority: Int,
+    var priority: Int,
 
     @SerializedName("count")
-    val count: Int,
+    var count: Int,
 
     @SerializedName("frequency")
-    val frequency: Int,
+    var frequency: Int,
 
     @SerializedName("color")
-    val color: Int,
+    var color: Int,
 
     @SerializedName("date")
-    val date: Int,
+    var date: Int,
 
     @PrimaryKey
     @SerializedName("uid")

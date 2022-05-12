@@ -23,8 +23,7 @@ class App: Application() {
         instance = this
         db = Room.databaseBuilder(
             applicationContext,
-            HabitsDataBase::class.java, "database4.0")
-            .allowMainThreadQueries()
+            HabitsDataBase::class.java, "database4.1")
             .build()
         configureRetrofit()
     }

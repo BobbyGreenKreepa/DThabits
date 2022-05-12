@@ -15,15 +15,11 @@ class DataBaseRepository {
 
     fun getHabits(): LiveData<List<Habit>> = App.db.HabitDao().getAll().map {  it.map(habitNetToDomainMapper) }
 
-    fun addHabit(habit: Habit) {
-        App.db.HabitDao().insert(domainHabitToNetMapper.invoke(habit))
-    }
+    fun addHabit(habit: Habit) = App.db.HabitDao().insert(domainHabitToNetMapper.invoke(habit))
 
-    fun updateHabit(habit: Habit) {
-        App.db.HabitDao().update(domainHabitToNetMapper.invoke(habit))
-    }
+    fun getByUid(uid: String) = App.db.HabitDao().getByUid(uid)?.let { habitNetToDomainMapper(it) }
 
-    fun deleteHabit(habit: Habit) {
-        App.db.HabitDao().delete(domainHabitToNetMapper.invoke(habit))
-    }
+    fun updateHabit(habit: Habit) = App.db.HabitDao().update(domainHabitToNetMapper.invoke(habit))
+
+    fun deleteHabit(habit: Habit) = App.db.HabitDao().delete(domainHabitToNetMapper.invoke(habit))
 }

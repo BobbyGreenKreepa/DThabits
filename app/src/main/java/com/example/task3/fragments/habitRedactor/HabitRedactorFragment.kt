@@ -141,7 +141,8 @@ class  HabitRedactorFragment: Fragment(){
 
     private fun collectHabit(): Habit {
         return Habit(
-            edit_habit_name.text.toString(), edit_description.text.toString(),
+            edit_habit_name.text.toString(),
+            edit_description.text.toString(),
             HabitType.fromInt(radioGroup.indexOfChild(requireView().findViewById(radioGroup.checkedRadioButtonId))),
             HabitPriority.fromInt(spinner.selectedItemPosition),
             Integer.valueOf(edit_times.text.toString()),
