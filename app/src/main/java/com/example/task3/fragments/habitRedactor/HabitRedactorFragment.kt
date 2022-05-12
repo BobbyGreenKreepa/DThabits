@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -84,6 +83,11 @@ class  HabitRedactorFragment: Fragment(){
         if (radioGroup.checkedRadioButtonId == -1) {
             result = false
             habit_current_type.setTextColor(Color.RED)
+        }
+
+        if (edit_description.text.isEmpty()){
+            result = false
+            description.setTextColor(Color.RED)
         }
 
         if (edit_days.text.isEmpty() || edit_times.text.isEmpty()) {

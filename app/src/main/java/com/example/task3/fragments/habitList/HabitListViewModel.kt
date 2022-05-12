@@ -13,25 +13,31 @@ class HabitListViewModel : ViewModel(), Filterable {
 
     private val mutableHabit = MutableLiveData<List<Habit>>()
     val habits: LiveData<List<Habit>> = mutableHabit
-    private lateinit var observer: Observer<List<Habit>>
+    private lateinit var observer: Observer<List<Habit>?>
 
     private var habitsNotFilteredList = mutableHabit.value
-    private  var repository: Repository = Repository()
+    private var repository: Repository = Repository()
     var habitType: HabitType? = null
 
     init {
         onCreate()
     }
 
-    private fun onCreate(){
-            observer = Observer<List<Habit>> { it ->
-                mutableHabit.value = it.filter { el -> el.type == habitType }
-            habitsNotFilteredList = mutableHabit.value}
-        viewModelScope.launch { repository.getHabits().observeForever(observer) }
+    private fun onCreate() {
+        observer = Observer {
+            mutableHabit.value = it?.filter { el -> el.type == habitType }
+            habitsNotFilteredList = mutableHabit.value
         }
+        viewModelScope.launch(CoroutineExceptionHandler { coroutineContext, throwable ->
+            throwable
+        }) { repository.getHabits().observeForever(observer) }
+    }
+
 
     override fun onCleared() {
         habits.removeObserver(observer)
+
+
     }
 
     override fun getFilter(): Filter {
@@ -40,9 +46,9 @@ class HabitListViewModel : ViewModel(), Filterable {
                 val searchString = constraint.toString()
                 val searchResult = FilterResults()
                 if (searchString.isEmpty())
-                    searchResult.values =  habitsNotFilteredList
+                    searchResult.values = habitsNotFilteredList
                 else
-                    searchResult.values = habits.value?.filter{ it.title.contains(searchString)}
+                    searchResult.values = habits.value?.filter { it.title.contains(searchString) }
                 return searchResult
             }
 
@@ -53,7 +59,7 @@ class HabitListViewModel : ViewModel(), Filterable {
     }
 
     fun deleteHabit(habit: Habit) = viewModelScope.launch {
-        withContext(Dispatchers.IO){repository.deleteHabit(habit)}
+        withContext(Dispatchers.IO) { repository.deleteHabit(habit) }
     }
 
     fun sortList(position: Int) = viewModelScope.launch {

@@ -2,6 +2,7 @@ package com.example.task3.data.repositories
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import com.example.task3.Habit
 import com.example.task3.converters.dataBaseConverters.DomainHabitToNetMapper
 import com.example.task3.converters.dataBaseConverters.HabitNetToDomainMapper
@@ -12,7 +13,7 @@ class DataBaseRepository {
     private val domainHabitToNetMapper = DomainHabitToNetMapper()
     private val habitNetToDomainMapper = HabitNetToDomainMapper()
 
-    fun getHabits(): LiveData<List<Habit>> = MutableLiveData(App.db.HabitDao().getAll().value?.map(habitNetToDomainMapper))
+    fun getHabits(): LiveData<List<Habit>> = App.db.HabitDao().getAll().map {  it.map(habitNetToDomainMapper) }
 
     fun addHabit(habit: Habit) {
         App.db.HabitDao().insert(domainHabitToNetMapper.invoke(habit))
